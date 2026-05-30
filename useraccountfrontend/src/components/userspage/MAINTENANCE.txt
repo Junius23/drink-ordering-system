@@ -1,0 +1,615 @@
+專案維護說明文件
+Drink Ordering System
+
+==================================================
+1. 這份文件用途
+==================================================
+
+這份文件是給自己維護專案時看的，不是給網站使用者看的。
+
+主要用途：
+
+1. 記錄 Admin 訂單管理頁拆分後的檔案用途
+2. 幫助自己之後找 bug
+3. 幫助自己知道要改哪個檔案
+4. 面試前可以快速複習專案架構
+5. 避免之後忘記某個功能放在哪裡
+
+==================================================
+2. Admin 訂單頁為什麼要拆
+==================================================
+
+原本 AdminOrderPage.jsx 裡面放了太多功能，例如：
+
+- 載入訂單資料
+- 載入飲料資料
+- 搜尋訂單
+- 篩選訂單
+- 顯示統計卡片
+- 顯示訂單表格
+- 顯示訂單明細 Modal
+- 完成訂單
+- 取消訂單
+- 刪除訂單
+- 列印訂單
+- 複製訂單摘要
+- 匯出 CSV
+- 新訂單提示音
+- 台灣時間顯示
+
+功能越來越多後，如果全部放在同一個檔案，會造成：
+
+1. 檔案太長
+2. 不容易閱讀
+3. 找 bug 困難
+4. 新增功能容易改壞其他功能
+5. 面試時也比較難解釋
+
+所以後來把 Admin 訂單管理頁拆成多個檔案，讓每個檔案負責一個主要功能。
+
+==================================================
+3. Admin 訂單頁目前檔案結構
+==================================================
+
+目前主要拆成這幾個檔案：
+
+src/components/userspage/AdminOrderPage.jsx
+src/components/userspage/AdminOrderStats.jsx
+src/components/userspage/AdminOrderFilters.jsx
+src/components/userspage/AdminOrderTable.jsx
+src/components/userspage/AdminOrderModal.jsx
+src/components/userspage/adminOrderUtils.js
+
+簡單理解：
+
+AdminOrderPage.jsx      = 訂單頁主頁面，負責資料、狀態、整合
+AdminOrderStats.jsx     = 統計卡片
+AdminOrderFilters.jsx   = 搜尋與篩選
+AdminOrderTable.jsx     = 訂單表格
+AdminOrderModal.jsx     = 訂單明細視窗
+adminOrderUtils.js      = 工具函式、格式化、計算、匯出、列印
+
+==================================================
+4. 各檔案詳細說明
+==================================================
+
+--------------------------------------------------
+4.1 AdminOrderPage.jsx
+--------------------------------------------------
+
+這是 Admin 訂單管理頁的主頁面。
+
+主要負責：
+
+- 管理訂單資料 orders
+- 管理飲料資料 drinks
+- 管理目前選到的訂單 selectedOrder
+- 管理搜尋文字 searchText
+- 管理狀態篩選 statusFilter
+- 管理日期篩選 dateFilter
+- 管理付款方式篩選 paymentFilter
+- 管理自動刪除 autoDelete
+- 載入訂單資料
+- 載入飲料資料
+- 更新訂單狀態
+- 刪除訂單
+- 自動更新訂單列表
+- 偵測新訂單
+- 把資料傳給 Stats、Filters、Table、Modal
+
+簡單說：
+
+AdminOrderPage.jsx 是整個 Admin 訂單頁的大腦。
+
+如果是資料來源、API、state、整合邏輯，通常先看這個檔案。
+
+--------------------------------------------------
+4.2 AdminOrderStats.jsx
+--------------------------------------------------
+
+這個檔案負責顯示統計卡片。
+
+顯示內容包含：
+
+- 今日訂單
+- 今日營業額
+- 待處理訂單
+- 已完成訂單
+- 已取消訂單
+
+如果要修改統計卡片的畫面，例如：
+
+- 改文字
+- 改排列
+- 新增統計項目
+- 改統計卡片 UI
+
+就看這個檔案。
+
+簡單說：
+
+AdminOrderStats.jsx = 統計卡片畫面。
+
+--------------------------------------------------
+4.3 AdminOrderFilters.jsx
+--------------------------------------------------
+
+這個檔案負責搜尋和篩選工具列。
+
+包含：
+
+- 搜尋框
+- 日期篩選
+- 訂單狀態篩選
+- 付款方式篩選
+- 清除篩選按鈕
+
+如果搜尋框或篩選下拉選單有問題，就先看這個檔案。
+
+但真正的篩選邏輯通常在 AdminOrderPage.jsx 裡面的 filteredOrders。
+
+簡單說：
+
+AdminOrderFilters.jsx = 搜尋與篩選的畫面。
+
+--------------------------------------------------
+4.4 AdminOrderTable.jsx
+--------------------------------------------------
+
+這個檔案負責顯示訂單列表表格。
+
+表格內容包含：
+
+- 訂單 ID
+- 顧客名稱
+- Email
+- 總金額
+- 付款方式
+- 訂單狀態
+- 建立時間
+- 商品摘要
+- 查看明細按鈕
+- 完成按鈕
+- 取消按鈕
+- 刪除按鈕
+- 列印按鈕
+- 複製按鈕
+
+注意：
+
+AdminOrderTable.jsx 只負責顯示表格和按鈕。
+它不直接處理 API。
+
+例如按完成按鈕時，它會呼叫從 AdminOrderPage.jsx 傳進來的 updateOrderStatus。
+
+如果表格欄位、按鈕位置、按鈕文字有問題，就看這個檔案。
+
+簡單說：
+
+AdminOrderTable.jsx = 訂單表格與操作按鈕。
+
+--------------------------------------------------
+4.5 AdminOrderModal.jsx
+--------------------------------------------------
+
+這個檔案負責顯示訂單明細彈窗。
+
+當管理員按下「查看」時，會顯示這個 Modal。
+
+內容包含：
+
+- 訂單編號
+- 商品總數量
+- 總金額
+- 商品圖片
+- 商品名稱
+- 數量
+- 單價
+- 小計
+- 關閉按鈕
+
+如果查看明細的內容不對，或 Modal 畫面有問題，就看這個檔案。
+
+簡單說：
+
+AdminOrderModal.jsx = 訂單明細視窗。
+
+--------------------------------------------------
+4.6 adminOrderUtils.js
+--------------------------------------------------
+
+這個檔案放共用工具函式。
+
+它不是畫面 component。
+
+主要功能包含：
+
+- normalizeText
+- normalizeStatus
+- normalizePayment
+- formatTaiwanTime
+- isToday
+- getOrderItemSummary
+- getOrderTotalQuantity
+- playNewOrderSound
+- printOrder
+- copyOrderSummary
+- exportOrdersCSV
+
+各功能說明：
+
+normalizeText：
+把文字轉成小寫並去掉空白，讓搜尋比較穩定。
+
+normalizeStatus：
+把訂單狀態轉成大寫，例如 pending 轉成 PENDING。
+
+normalizePayment：
+把付款方式轉成大寫，避免大小寫不同造成篩選失敗。
+
+formatTaiwanTime：
+把後端傳來的時間轉成台灣時間顯示。
+
+isToday：
+判斷訂單是不是今天的訂單。
+
+getOrderItemSummary：
+產生商品摘要，例如：綠茶 x2、紅茶 x1。
+
+getOrderTotalQuantity：
+計算商品總數量，例如總共 5 杯。
+
+playNewOrderSound：
+有新訂單時播放提示音。
+
+printOrder：
+列印訂單收據。
+
+copyOrderSummary：
+複製訂單摘要，方便貼到 LINE 或其他地方。
+
+exportOrdersCSV：
+匯出目前篩選後的訂單 CSV。
+
+簡單說：
+
+adminOrderUtils.js = 工具函式、格式化、計算、列印、複製、匯出。
+
+==================================================
+5. 維護時怎麼找檔案
+==================================================
+
+--------------------------------------------------
+5.1 訂單列表沒有顯示
+--------------------------------------------------
+
+先看：
+
+AdminOrderPage.jsx
+
+檢查：
+
+- loadOrders 是否有執行
+- API 是否正確
+- token 是否存在
+- role 是否為 ADMIN
+- 後端 /admin/orders 是否正常
+- Console 是否有錯誤
+
+--------------------------------------------------
+5.2 搜尋不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderFilters.jsx
+AdminOrderPage.jsx
+adminOrderUtils.js
+
+檢查：
+
+- 搜尋框是否有正確 setSearchText
+- filteredOrders 是否有包含搜尋條件
+- normalizeText 是否正常
+- 是否有把商品摘要也加入搜尋
+
+--------------------------------------------------
+5.3 狀態篩選不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderFilters.jsx
+AdminOrderPage.jsx
+adminOrderUtils.js
+
+檢查：
+
+- statusFilter 是否正確
+- normalizeStatus 是否有把 status 統一成大寫
+- 後端回傳的 status 是 PENDING、COMPLETED、CANCELLED 還是小寫
+
+--------------------------------------------------
+5.4 付款方式篩選不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderFilters.jsx
+AdminOrderPage.jsx
+adminOrderUtils.js
+
+檢查：
+
+- paymentFilter 是否正確
+- normalizePayment 是否有處理大小寫
+- 後端回傳的 paymentMethod 是否和選項一致
+
+--------------------------------------------------
+5.5 今日訂單篩選不正常
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+
+檢查：
+
+- isToday
+- formatTaiwanTime
+- 時區是否為 Asia/Taipei
+- 後端時間是否是 UTC
+
+--------------------------------------------------
+5.6 訂單時間不正確
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+
+檢查：
+
+- formatTaiwanTime
+- isToday
+
+如果畫面時間差 8 小時，通常是 UTC 和台灣時間問題。
+
+目前前端會把後端時間轉成台灣時間顯示。
+
+--------------------------------------------------
+5.7 完成或取消按鈕不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderTable.jsx
+AdminOrderPage.jsx
+
+檢查：
+
+- Table 裡按鈕是否呼叫 updateOrderStatus
+- Page 裡 updateOrderStatus 是否有正確打 API
+- API 路徑是否是 /admin/orders/{id}/{status}
+- token 是否正確
+- 後端權限是否允許 ADMIN
+
+--------------------------------------------------
+5.8 刪除訂單不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderTable.jsx
+AdminOrderPage.jsx
+
+檢查：
+
+- deleteOrder 是否被呼叫
+- API 是否是 DELETE /admin/orders/{id}
+- 是否有 token
+- 後端是否支援刪除
+
+--------------------------------------------------
+5.9 查看訂單明細不正常
+--------------------------------------------------
+
+先看：
+
+AdminOrderModal.jsx
+AdminOrderPage.jsx
+
+檢查：
+
+- selectedOrder 是否有資料
+- selectedOrder.items 是否存在
+- getDrinkImage 是否能找到圖片
+- getOrderTotalQuantity 是否正常
+
+--------------------------------------------------
+5.10 統計卡片數字不正確
+--------------------------------------------------
+
+先看：
+
+AdminOrderPage.jsx
+AdminOrderStats.jsx
+
+檢查：
+
+- todayOrders
+- todayRevenue
+- pendingCount
+- completedCount
+- cancelledCount
+
+如果是今日訂單數錯誤，也要檢查 isToday。
+
+--------------------------------------------------
+5.11 匯出 CSV 不正常
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+
+檢查：
+
+- exportOrdersCSV
+- filteredOrders 是否有資料
+- 欄位是否正確
+- 中文是否有 BOM，避免 Excel 亂碼
+
+--------------------------------------------------
+5.12 列印不正常
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+
+檢查：
+
+- printOrder
+- window.open 是否被瀏覽器阻擋
+- 訂單資料是否完整
+
+--------------------------------------------------
+5.13 複製訂單摘要不正常
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+
+檢查：
+
+- copyOrderSummary
+- 瀏覽器是否允許 clipboard
+- 訂單 items 是否有資料
+
+--------------------------------------------------
+5.14 新訂單提示音不正常
+--------------------------------------------------
+
+先看：
+
+adminOrderUtils.js
+AdminOrderPage.jsx
+
+檢查：
+
+- playNewOrderSound
+- 瀏覽器是否允許播放聲音
+- previousOrderIdsRef 是否正常
+- loadOrders 是否有每 5 秒更新
+
+==================================================
+6. 修改功能時的規則
+==================================================
+
+規則 1：
+不要把所有新功能都塞回 AdminOrderPage.jsx。
+
+規則 2：
+如果是統計卡片畫面，改 AdminOrderStats.jsx。
+
+規則 3：
+如果是搜尋或篩選畫面，改 AdminOrderFilters.jsx。
+
+規則 4：
+如果是訂單表格欄位或按鈕，改 AdminOrderTable.jsx。
+
+規則 5：
+如果是訂單明細彈窗，改 AdminOrderModal.jsx。
+
+規則 6：
+如果是時間格式、計算、CSV、列印、複製，改 adminOrderUtils.js。
+
+規則 7：
+如果是 API 或 state 管理，才改 AdminOrderPage.jsx。
+
+規則 8：
+如果只是修改訂單頁，不要動飲料管理檔案。
+
+不要亂動：
+
+- AdminDrinkService.js
+- DrinkController.java
+- SecurityConfig.java
+- OrderController.java
+
+除非問題真的跟飲料、權限、後端訂單 API 有關。
+
+==================================================
+7. 每個檔案的責任
+==================================================
+
+AdminOrderPage.jsx
+責任：資料、state、API、整合。
+
+AdminOrderStats.jsx
+責任：統計卡片 UI。
+
+AdminOrderFilters.jsx
+責任：搜尋與篩選 UI。
+
+AdminOrderTable.jsx
+責任：訂單表格 UI。
+
+AdminOrderModal.jsx
+責任：訂單明細 UI。
+
+adminOrderUtils.js
+責任：工具函式、格式化、計算、列印、複製、匯出。
+
+==================================================
+8. 常見功能對照表
+==================================================
+
+功能：顯示訂單列表
+主要檔案：AdminOrderPage.jsx、AdminOrderTable.jsx
+
+功能：搜尋訂單
+主要檔案：AdminOrderFilters.jsx、AdminOrderPage.jsx、adminOrderUtils.js
+
+功能：狀態篩選
+主要檔案：AdminOrderFilters.jsx、AdminOrderPage.jsx
+
+功能：付款方式篩選
+主要檔案：AdminOrderFilters.jsx、AdminOrderPage.jsx
+
+功能：今日訂單
+主要檔案：AdminOrderPage.jsx、adminOrderUtils.js
+
+功能：統計卡片
+主要檔案：AdminOrderStats.jsx
+
+功能：查看明細
+主要檔案：AdminOrderModal.jsx
+
+功能：完成訂單
+主要檔案：AdminOrderTable.jsx、AdminOrderPage.jsx
+
+功能：取消訂單
+主要檔案：AdminOrderTable.jsx、AdminOrderPage.jsx
+
+功能：刪除訂單
+主要檔案：AdminOrderTable.jsx、AdminOrderPage.jsx
+
+功能：列印訂單
+主要檔案：adminOrderUtils.js
+
+功能：複製訂單摘要
+主要檔案：adminOrderUtils.js
+
+功能：匯出 CSV
+主要檔案：adminOrderUtils.js
+
+功能：台灣時間顯示
+主要檔案：adminOrderUtils.js
+
+功能：新訂單提示音
+主要檔案：adminOrderUtils.js、AdminOrderPage.jsx
+
+

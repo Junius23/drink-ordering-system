@@ -1,0 +1,947 @@
+/* ============================
+   整體排版區
+============================ */
+.admin-drinks {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 35px;
+  padding: 15px;
+  color: #e2e8f0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.admin-drinks-title {
+  text-align: center;
+  margin-top: 20px;
+  color: #a5b4fc;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.admin-drinks-message {
+  text-align: center;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.admin-drinks-loading {
+  text-align: center;
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+/* ============================
+   上方工具列：標題 + 字體大小
+============================ */
+.admin-drinks-page {
+  --drink-font-scale: 1;
+}
+
+.admin-drinks-page.font-size-small {
+  --drink-font-scale: 0.9;
+}
+
+.admin-drinks-page.font-size-normal {
+  --drink-font-scale: 1;
+}
+
+.admin-drinks-page.font-size-large {
+  --drink-font-scale: 1.15;
+}
+
+.admin-drinks-page.font-size-xlarge {
+  --drink-font-scale: 1.3;
+}
+
+.admin-drinks-page,
+.admin-drinks-page input,
+.admin-drinks-page textarea,
+.admin-drinks-page select,
+.admin-drinks-page button,
+.admin-drinks-page table {
+  font-size: calc(14px * var(--drink-font-scale));
+}
+
+.admin-drinks-page .admin-drinks-title {
+  font-size: calc(30px * var(--drink-font-scale));
+}
+
+.admin-drinks-page h2 {
+  font-size: calc(20px * var(--drink-font-scale));
+}
+
+.admin-drinks-page .drink-status-btn,
+.admin-drinks-page .drink-stock-btn,
+.admin-drinks-page .drink-status,
+.admin-drinks-page .drink-stock {
+  font-size: calc(12px * var(--drink-font-scale)) !important;
+}
+
+.admin-drinks-page .drink-time-cell {
+  font-size: calc(12px * var(--drink-font-scale));
+}
+
+.admin-drinks-topbar {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.font-size-control select {
+  background: rgba(30, 41, 59, 0.9);
+  color: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.font-size-control select option {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+/* ============================
+   左側：表單
+============================ */
+.admin-drinks-form {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-drinks-form h2 {
+  color: #f8fafc !important;
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.admin-drinks-form label,
+.admin-drinks-form p {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #f8fafc !important;
+}
+
+.admin-drinks-form input,
+.admin-drinks-form textarea,
+.admin-drinks-form select {
+  background: rgba(30, 41, 59, 0.7);
+  color: #ffffff !important;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 10px;
+  font-size: 14px;
+  transition: 0.25s ease;
+}
+
+.admin-drinks-form input:focus,
+.admin-drinks-form textarea:focus,
+.admin-drinks-form select:focus {
+  border-color: #38bdf8;
+  outline: none;
+  background: rgba(30, 58, 95, 0.8);
+}
+
+.admin-drinks-form input::placeholder,
+.admin-drinks-form textarea::placeholder {
+  color: #cbd5e1 !important;
+}
+
+.admin-drinks-form select option {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* 圖片預覽 */
+.drink-preview-box {
+  margin-top: 4px;
+}
+
+.drink-preview-box p {
+  margin: 0 0 8px;
+  color: #cbd5e1;
+}
+
+.drink-preview-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+/* checkbox 舊樣式保留，不使用也不會影響 */
+.drink-checkbox-label {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px !important;
+}
+
+.drink-checkbox-label input {
+  width: auto;
+}
+
+/* 按鈕區 */
+.admin-drinks-form-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* 新增 / 儲存按鈕 */
+.admin-drinks-form button[type="submit"] {
+  background-color: #38bdf8;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.admin-drinks-form button[type="submit"]:hover {
+  background-color: #0ea5e9;
+}
+
+/* 取消按鈕 */
+.admin-drinks-form button[type="button"] {
+  background-color: rgba(148, 163, 184, 0.4);
+  color: #f1f5f9;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.admin-drinks-form button[type="button"]:hover {
+  background-color: rgba(148, 163, 184, 0.7);
+}
+
+/* ============================
+   右側：資料表格
+============================ */
+.admin-drinks-list {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow-x: auto;
+}
+
+.drink-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.drink-list-header h2,
+.admin-drinks-list h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #bfdbfe !important;
+}
+
+.drink-list-header p,
+.admin-drinks-list p {
+  margin: 6px 0 0;
+  color: #e2e8f0 !important;
+  font-size: 14px;
+}
+
+/* 匯出 CSV 按鈕 */
+.drink-export-btn {
+  background: #22c55e !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  padding: 9px 14px !important;
+  border-radius: 10px !important;
+}
+
+.drink-export-btn:hover {
+  background: #16a34a !important;
+  transform: translateY(-2px);
+}
+
+/* 搜尋與篩選工具列 */
+.drink-list-tools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.drink-list-tools input,
+.drink-list-tools select {
+  background: rgba(30, 41, 59, 0.85);
+  color: #ffffff !important;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.drink-list-tools input {
+  min-width: 230px;
+  flex: 1;
+}
+
+.drink-list-tools input::placeholder {
+  color: #cbd5e1 !important;
+}
+
+.drink-list-tools select option {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.clear-filter-btn {
+  background: #64748b !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+.clear-filter-btn:hover {
+  background: #475569 !important;
+}
+
+/* 表格外層，可以橫向滑動 */
+.admin-drinks-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 表格 */
+.admin-drinks-list table {
+  width: 100%;
+  min-width: 1150px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-drinks-list th,
+.admin-drinks-list td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  color: #f8fafc !important;
+  vertical-align: middle;
+}
+
+.admin-drinks-list th {
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.admin-drinks-list td {
+  font-weight: 500;
+}
+
+/* 上架 / 下架時間 */
+.drink-time-cell {
+  min-width: 150px;
+  font-size: 12px;
+  color: #f1f5f9 !important;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* 圖片 */
+.drink-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: block;
+  margin: 0 auto;
+}
+
+.drink-img.clickable {
+  cursor: zoom-in;
+  transition: 0.2s ease;
+}
+
+.drink-img.clickable:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.55);
+}
+
+/* 舊狀態樣式保留 */
+.drink-status,
+.drink-stock {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.drink-status.on {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+}
+
+.drink-status.off {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
+}
+
+.drink-stock.normal {
+  background: rgba(59, 130, 246, 0.18);
+  color: #60a5fa;
+}
+
+.drink-stock.sold-out {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+}
+
+/* 可點擊狀態按鈕：上架 / 下架 / 正常 / 售完 */
+.drink-status-btn,
+.drink-stock-btn {
+  display: inline-block;
+  min-width: 58px;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.drink-status-btn.on {
+  background: rgba(16, 185, 129, 0.35) !important;
+  color: #ecfdf5 !important;
+  border: 1px solid rgba(52, 211, 153, 0.6) !important;
+}
+
+.drink-status-btn.off {
+  background: rgba(148, 163, 184, 0.35) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(203, 213, 225, 0.6) !important;
+}
+
+.drink-stock-btn.normal {
+  background: rgba(59, 130, 246, 0.35) !important;
+  color: #eff6ff !important;
+  border: 1px solid rgba(96, 165, 250, 0.6) !important;
+}
+
+.drink-stock-btn.sold-out {
+  background: rgba(239, 68, 68, 0.35) !important;
+  color: #fff1f2 !important;
+  border: 1px solid rgba(248, 113, 113, 0.7) !important;
+}
+
+.drink-status-btn:hover,
+.drink-stock-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+/* 操作按鈕 */
+.drink-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-drinks-list button {
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  transition: 0.25s ease;
+}
+
+.drink-action-buttons button:first-of-type {
+  background-color: rgba(234, 179, 8, 0.85);
+  color: #111827 !important;
+  font-weight: 800 !important;
+}
+
+.drink-action-buttons button:first-of-type:hover {
+  background-color: rgba(234, 179, 8, 1);
+}
+
+.drink-action-buttons button:last-of-type {
+  background-color: rgba(239, 68, 68, 0.85);
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+.drink-action-buttons button:last-of-type:hover {
+  background-color: rgba(220, 38, 38, 0.95);
+}
+
+/* ============================
+   圖片放大預覽 Modal
+============================ */
+.drink-image-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.82);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.drink-image-modal {
+  position: relative;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 18px;
+  padding: 18px;
+  max-width: 90vw;
+  max-height: 90vh;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.drink-image-modal img {
+  max-width: 80vw;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 14px;
+  display: block;
+}
+
+.drink-image-modal p {
+  margin: 12px 0 0;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.drink-image-modal-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  line-height: 30px;
+}
+
+.drink-image-modal-close:hover {
+  background: #dc2626;
+}
+
+/* ============================
+   RWD
+============================ */
+@media (max-width: 900px) {
+  .admin-drinks {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-drinks-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .font-size-control {
+    justify-content: center;
+  }
+
+  .font-size-control select {
+    width: 100%;
+  }
+
+  .admin-drinks {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .admin-drinks-title {
+    font-size: 24px;
+  }
+
+  .admin-drinks-form,
+  .admin-drinks-list {
+    padding: 18px;
+  }
+
+  .drink-list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .drink-export-btn {
+    width: 100%;
+  }
+
+  .drink-list-tools {
+    flex-direction: column;
+  }
+
+  .drink-list-tools input,
+  .drink-list-tools select,
+  .clear-filter-btn {
+    width: 100%;
+  }
+
+  .drink-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+  }
+
+  .admin-drinks-list table {
+    font-size: 12px;
+    min-width: 1150px;
+  }
+
+  .admin-drinks-list th,
+  .admin-drinks-list td {
+    padding: 8px 6px;
+  }
+
+  .admin-drinks-list button {
+    padding: 5px 8px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+
+  .drink-time-cell {
+    min-width: 140px;
+    font-size: 11px;
+  }
+
+  .drink-image-modal img {
+    max-width: 86vw;
+    max-height: 65vh;
+  }
+}
+
+/* ============================
+   頁面顯示設定：字體大小 / 粗細 / 間距 / 高亮
+============================ */
+.admin-drinks-page {
+  --drink-font-scale: 1;
+  --drink-font-weight: 500;
+  --drink-table-padding-y: 12px;
+}
+
+.admin-drinks-page.font-size-small {
+  --drink-font-scale: 0.9;
+}
+
+.admin-drinks-page.font-size-normal {
+  --drink-font-scale: 1;
+}
+
+.admin-drinks-page.font-size-large {
+  --drink-font-scale: 1.15;
+}
+
+.admin-drinks-page.font-size-xlarge {
+  --drink-font-scale: 1.3;
+}
+
+.admin-drinks-page.font-weight-normal {
+  --drink-font-weight: 500;
+}
+
+.admin-drinks-page.font-weight-bold {
+  --drink-font-weight: 800;
+}
+
+.admin-drinks-page.row-density-compact {
+  --drink-table-padding-y: 7px;
+}
+
+.admin-drinks-page.row-density-normal {
+  --drink-table-padding-y: 12px;
+}
+
+.admin-drinks-page.row-density-comfortable {
+  --drink-table-padding-y: 18px;
+}
+
+.admin-drinks-page,
+.admin-drinks-page input,
+.admin-drinks-page textarea,
+.admin-drinks-page select,
+.admin-drinks-page button,
+.admin-drinks-page table {
+  font-size: calc(14px * var(--drink-font-scale));
+}
+
+.admin-drinks-page .admin-drinks-title {
+  font-size: calc(30px * var(--drink-font-scale));
+}
+
+.admin-drinks-page h2 {
+  font-size: calc(20px * var(--drink-font-scale));
+}
+
+.admin-drinks-page .admin-drinks-list td,
+.admin-drinks-page .admin-drinks-list th,
+.admin-drinks-page .admin-drinks-form label,
+.admin-drinks-page .drink-list-header p {
+  font-weight: var(--drink-font-weight) !important;
+}
+
+.admin-drinks-page .admin-drinks-list th,
+.admin-drinks-page .admin-drinks-list td {
+  padding-top: var(--drink-table-padding-y);
+  padding-bottom: var(--drink-table-padding-y);
+}
+
+.admin-drinks-page .drink-status-btn,
+.admin-drinks-page .drink-stock-btn,
+.admin-drinks-page .drink-status,
+.admin-drinks-page .drink-stock {
+  font-size: calc(12px * var(--drink-font-scale)) !important;
+}
+
+.admin-drinks-page .drink-time-cell {
+  font-size: calc(12px * var(--drink-font-scale));
+}
+
+/* 高亮文字模式 */
+.admin-drinks-page.high-contrast .admin-drinks-form label,
+.admin-drinks-page.high-contrast .admin-drinks-form h2,
+.admin-drinks-page.high-contrast .admin-drinks-form p,
+.admin-drinks-page.high-contrast .admin-drinks-list h2,
+.admin-drinks-page.high-contrast .drink-list-header p,
+.admin-drinks-page.high-contrast .admin-drinks-list th,
+.admin-drinks-page.high-contrast .admin-drinks-list td {
+  color: #ffffff !important;
+}
+
+.admin-drinks-page.high-contrast .admin-drinks-list {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.admin-drinks-page.high-contrast .admin-drinks-form {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* 上方顯示設定工具列 */
+.admin-drinks-topbar {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.display-setting-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  padding: 10px;
+  border-radius: 14px;
+}
+
+.display-setting-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f8fafc;
+  font-weight: 800;
+}
+
+.display-setting-item label {
+  white-space: nowrap;
+}
+
+.display-setting-panel select {
+  background: rgba(30, 41, 59, 0.95);
+  color: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.display-setting-panel select option {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+.contrast-toggle-btn,
+.reset-display-btn {
+  color: #ffffff !important;
+  border: none !important;
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+  font-weight: 800 !important;
+  cursor: pointer;
+}
+
+.contrast-toggle-btn {
+  background: #475569 !important;
+}
+
+.contrast-toggle-btn.active {
+  background: #2563eb !important;
+}
+
+.reset-display-btn {
+  background: #ef4444 !important;
+}
+
+.reset-display-btn:hover,
+.contrast-toggle-btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .admin-drinks-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .display-setting-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .display-setting-item {
+    justify-content: space-between;
+  }
+
+  .display-setting-panel select,
+  .contrast-toggle-btn,
+  .reset-display-btn {
+    width: 100%;
+  }
+}
+
+/* ============================
+   修正白底看不到字的問題
+============================ */
+
+/* 整個飲料管理頁改成深色文字 */
+.admin-drinks-page {
+  color: #0f172a !important;
+}
+
+/* 左右卡片白底時，文字要深色 */
+.admin-drinks-form,
+.admin-drinks-list {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+}
+
+/* 標題 */
+.admin-drinks-form h2,
+.admin-drinks-list h2,
+.drink-list-header h2 {
+  color: #2563eb !important;
+}
+
+/* 一般文字 */
+.admin-drinks-form label,
+.admin-drinks-form p,
+.admin-drinks-list p,
+.drink-list-header p {
+  color: #334155 !important;
+}
+
+/* 表格標題與內容 */
+.admin-drinks-list th {
+  color: #1e293b !important;
+  font-weight: 900 !important;
+}
+
+.admin-drinks-list td {
+  color: #334155 !important;
+  font-weight: 700 !important;
+}
+
+/* 上架時間 / 下架時間 */
+.drink-time-cell {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+/* 表單輸入框保持深色底白字 */
+.admin-drinks-form input,
+.admin-drinks-form textarea,
+.admin-drinks-form select,
+.drink-list-tools input,
+.drink-list-tools select {
+  background: #475569 !important;
+  color: #ffffff !important;
+}
+
+/* placeholder 清楚一點 */
+.admin-drinks-form input::placeholder,
+.admin-drinks-form textarea::placeholder,
+.drink-list-tools input::placeholder {
+  color: #e2e8f0 !important;
+}
+
+/* 表格底線加深一點 */
+.admin-drinks-list th,
+.admin-drinks-list td {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* 飲料列表的白色背景不要透明到看不清楚 */
+.admin-drinks-list {
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.18) !important;
+}
+
+/* 新增飲料表單也一樣 */
+.admin-drinks-form {
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.18) !important;
+}

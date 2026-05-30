@@ -1,0 +1,84 @@
+/* 整頁背景樣式（只限此頁） */
+.dht-page {
+  min-height: 100vh;
+  background: #0f172a; /* 深藍黑背景 */
+  padding: 50px 20px;
+  color: #e2e8f0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  text-align: center;
+}
+
+/* 標題 */
+.dht-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #93c5fd;
+  margin-bottom: 30px;
+}
+
+/* 卡片外層 */
+.dht-cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+/* 單張卡片 Glass UI */
+.dht-card {
+  width: 180px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+  transition: 0.25s;
+}
+
+.dht-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+}
+
+/* Icon */
+.icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Data value */
+.value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Label */
+.label {
+  font-size: 16px;
+  color: #a5b4fc;
+}
+
+/* 卡片主題色調 */
+.temp-card {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.humidity-card {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* 手機版 */
+@media (max-width: 600px) {
+  .dht-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dht-card {
+    width: 80%;
+  }
+}

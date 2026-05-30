@@ -1,0 +1,108 @@
+/* =======================================
+   主控制卡片 Glass UI
+======================================= */
+.led-panel {
+  width: 360px;
+  margin: 70px auto;
+  padding: 30px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  color: #e2e8f0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* 標題 */
+.led-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #a5b4fc;
+  margin-bottom: 20px;
+}
+
+/* =======================================
+   LED 狀態顯示
+======================================= */
+.led-status {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 14px 0;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  transition: 0.25s ease;
+}
+
+/* 開燈綠色 */
+.led-status.on {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+/* 關燈紅色 */
+.led-status.off {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* =======================================
+   按鈕區塊
+======================================= */
+.led-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* 開燈按鈕 */
+.btn-on {
+  background: #22c55e;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.25s ease;
+}
+
+.btn-on:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+}
+
+/* 關燈按鈕 */
+.btn-off {
+  background: #ef4444;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.25s ease;
+}
+
+.btn-off:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.35);
+}
+
+/* 專屬於 LED 頁面的黑色背景 */
+.led-page-bg {
+  background: #0f172a;      /* 純暗藍色 */
+  min-height: 100vh;     /* 讓它全螢幕 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}

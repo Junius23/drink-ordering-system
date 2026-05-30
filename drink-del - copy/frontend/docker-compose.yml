@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: useraccount-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users_accounts
+    ports:
+      - "3307:3306"
+
+  backend:
+    build: .
+    container_name: useraccount-backend
+    restart: always
+    ports:
+      - "2020:2020"
+    depends_on:
+      - mysql
+
+  frontend:
+    build: "../drink-del - copy/frontend"
+    container_name: drink-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
