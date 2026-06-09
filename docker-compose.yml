@@ -12,7 +12,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   backend:
-    build: .
+    build: ./useraccountsystem
     container_name: useraccount-backend
     restart: always
     ports:
@@ -24,34 +24,23 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
     volumes:
-      - ./uploads:/app/uploads
+      - ./useraccountsystem/uploads:/app/uploads
 
   frontend:
-    build: "../drink-del - copy/frontend"
+    build: "./drink-del - copy/frontend"
     container_name: drink-frontend
     restart: always
     ports:
       - "5174:5173"
-    volumes:
-      - "../drink-del - copy/frontend:/app"
-      - /app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - backend
 
   frontend1:
-    build: "../useraccountfrontend"
+    build: ./useraccountfrontend
     container_name: useraccount-frontend
     restart: always
     ports:
       - "5175:3000"
-    volumes:
-      - "../useraccountfrontend:/app"
-      - /app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true
     depends_on:
       - backend
 
